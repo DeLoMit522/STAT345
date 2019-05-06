@@ -15,3 +15,10 @@ model_select = function(covariates, responses, cutoff){
   secondModel = lm(responses ~ covariates[, summary(lm(responses~covariates))[[4]][2,4] <= cutoff])
   return(summary(secondModel)[[4]][2,4])
 }
+
+run_simulations = function(n_trials, n, p, cutoff){
+  for(i in 1:n_trials){
+    stuff = generate_data(n, p)
+    hist(model_select(stuff$covariates, stuff$responses, cutoff))
+  }
+}
